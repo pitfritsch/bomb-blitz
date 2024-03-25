@@ -2,7 +2,7 @@
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
 
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { Center, ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 export const metadata = {
   title: "My Mantine app",
@@ -20,7 +20,11 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <Center w={"100vw"} mih={"100vh"} bg={"#3e3e3e"}>
+            {children}
+          </Center>
+        </MantineProvider>
       </body>
     </html>
   );
