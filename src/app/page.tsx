@@ -2,7 +2,7 @@
 import useGame from "@/hooks/useGame";
 import { ActionIcon, Button, SimpleGrid } from "@mantine/core";
 import { IconBombFilled } from "@tabler/icons-react";
-import React from "react";
+import React, { useEffect } from "react";
 
 const boardSize = 15;
 
@@ -38,7 +38,7 @@ export default function Home() {
             h={"50px"}
             onClick={() => handleClick(field.x, field.y)}
           >
-            {field.isOpen && <Icon />}
+            {field.isOpen && field.icon}
           </ActionIcon>
         );
       })}

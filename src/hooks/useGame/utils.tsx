@@ -41,7 +41,7 @@ export function generateGameBoard(
 
   game.forEach((field) => {
     if (field.isBomb) {
-      field.icon = IconBombFilled;
+      field.icon = <IconBombFilled />;
       return;
     }
     runActionForNeighbors(field.x, field.y, (x, y) => {
@@ -49,31 +49,31 @@ export function generateGameBoard(
       if (neighbor?.isBomb) field.bombsAdjacentCount++;
       switch (field.bombsAdjacentCount) {
         case 1:
-          field.icon = IconNumber1;
+          field.icon = <IconNumber1 color="#66FF66" />;
           break;
         case 2:
-          field.icon = IconNumber2;
+          field.icon = <IconNumber2 color="#99FF33" />;
           break;
         case 3:
-          field.icon = IconNumber3;
+          field.icon = <IconNumber3 color="#FFFF00" />;
           break;
         case 4:
-          field.icon = IconNumber4;
+          field.icon = <IconNumber4 color="#FFCC00" />;
           break;
         case 5:
-          field.icon = IconNumber5;
+          field.icon = <IconNumber5 color="#FF6600" />;
           break;
         case 6:
-          field.icon = IconNumber6;
+          field.icon = <IconNumber6 color="#FF3300" />;
           break;
         case 7:
-          field.icon = IconNumber7;
+          field.icon = <IconNumber7 color="#FF0000" />;
           break;
         case 8:
-          field.icon = IconNumber8;
+          field.icon = <IconNumber8 color="#CC0000" />;
           break;
         default:
-          field.icon = React.Fragment;
+          field.icon = <React.Fragment />;
           break;
       }
     });

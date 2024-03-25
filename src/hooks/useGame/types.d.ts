@@ -2,7 +2,7 @@ interface Field {
   x: number;
   y: number;
   bombsAdjacentCount: number;
-  icon?: React.JSX;
+  icon?: JSX.Element;
   isBomb?: boolean;
   isOpen?: boolean;
 }
