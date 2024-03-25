@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { generateGameBoard } from "./utils";
+import { generateGameBoard, runActionForNeighbors } from "./utils";
 
 interface Props {
   boardSize: number;
@@ -9,17 +9,21 @@ export default function useGame({ boardSize = 10 }: Props) {
   const [gameBoard, setGameBoard] = useState<Field[]>([]);
 
   useEffect(() => {
-    setGameBoard(generateGameBoard(boardSize));
+    setGameBoard(generateGameBoard(boardSize, 15));
   }, [boardSize]);
 
   function handleClick(x: number, y: number) {
-    setGameBoard((currentGame) => {
-      const newGame = [...currentGame];
-      const field = newGame.find((f) => f.x === x && f.y === y);
-      if (!field) return currentGame;
-      field.isOpen = true;
-      return newGame;
-    });
+    const newGame = [...gameBoard];
+    const field = newGame.find((f) => f.x === x && f.y === y);
+    if (!field || field.isOpen) return;
+
+    field.isOpen = true;
+
+    if (!field.bombsAdjacentCount && !field.isBomb) {
+      runActionForNeighbors(x, y, handleClick);
+    }
+
+    setGameBoard(newGame);
   }
 
   return { gameBoard, handleClick };

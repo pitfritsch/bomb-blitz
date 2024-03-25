@@ -19,10 +19,18 @@ export default function Home() {
             color={
               field.x % 2
                 ? field.y % 2
-                  ? "#268B07"
+                  ? field.isOpen
+                    ? "#9b7653"
+                    : "#268B07"
+                  : field.isOpen
+                  ? "#765f48"
                   : "#41980a"
                 : field.y % 2
-                ? "#41980a"
+                ? field.isOpen
+                  ? "#765f48"
+                  : "#41980a"
+                : field.isOpen
+                ? "#9b7653"
                 : "#268B07"
             }
             radius={0}
