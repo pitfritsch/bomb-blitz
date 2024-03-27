@@ -4,7 +4,7 @@ import { ActionIcon, Button, SimpleGrid } from "@mantine/core";
 import { IconBombFilled } from "@tabler/icons-react";
 import React, { useEffect } from "react";
 
-const boardSize = 15;
+const boardSize = 20;
 
 export default function Home() {
   const { gameBoard, handleClick } = useGame({ boardSize });
@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <SimpleGrid cols={boardSize} spacing={0}>
       {gameBoard.map((field) => {
-        const Icon = field.icon;
         return (
           <ActionIcon
             key={`${field.x}-${field.y}`}
@@ -34,8 +33,8 @@ export default function Home() {
                 : "#268B07"
             }
             radius={0}
-            w={"50px"}
-            h={"50px"}
+            w={"20px"}
+            h={"20px"}
             onClick={() => handleClick(field.x, field.y)}
           >
             {field.isOpen && field.icon}
