@@ -23,6 +23,10 @@ export function runActionForNeighbors(
   }
 }
 
+export function getFieldByPosition(board: Field[], x: number, y: number) {
+  return board.find((f) => f.x === x && f.y === y);
+}
+
 export function generateGameBoard(
   boardSize: number = 10,
   bombsPercentage: number = 10
@@ -45,7 +49,7 @@ export function generateGameBoard(
       return;
     }
     runActionForNeighbors(field.x, field.y, (x, y) => {
-      const neighbor = game.find((f) => f.x === x && f.y === y);
+      const neighbor = getFieldByPosition(game, x, y);
       if (neighbor?.isBomb) field.bombsAdjacentCount++;
       switch (field.bombsAdjacentCount) {
         case 1:

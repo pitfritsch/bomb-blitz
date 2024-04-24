@@ -5,4 +5,5 @@ interface Field {
   icon?: JSX.Element;
   isBomb?: boolean;
   isOpen?: boolean;
+  hasFlag?: boolean;
 }

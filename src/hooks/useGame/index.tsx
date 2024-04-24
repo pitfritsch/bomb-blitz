@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { generateGameBoard, runActionForNeighbors } from "./utils";
+import {
+  generateGameBoard,
+  getFieldByPosition,
+  runActionForNeighbors,
+} from "./utils";
 import { sleep } from "@/utils/utils";
 import { shuffle } from "lodash";
 
@@ -20,7 +24,7 @@ export default function useGame({ boardSize = 10 }: Props) {
         field.isOpen = true; // Update isOpen property
         setGameBoard([...newGame]); // Update the game board
 
-        await sleep(100); // Sleep for 100 milliseconds
+        await sleep(10); // Sleep for 100 milliseconds
 
         await updateFields(index + 1); // Recursively call updateFields for the next field
       }
@@ -31,7 +35,7 @@ export default function useGame({ boardSize = 10 }: Props) {
 
   async function handleClick(x: number, y: number) {
     const newGame = [...gameBoard];
-    const field = newGame.find((f) => f.x === x && f.y === y);
+    const field = getFieldByPosition(newGame, x, y);
     if (!field || field.isOpen) return;
 
     field.isOpen = true;
@@ -45,10 +49,18 @@ export default function useGame({ boardSize = 10 }: Props) {
     if (field.isBomb) handleBombClick();
   }
 
+  async function handleRightClick(x: number, y: number) {
+    const newGame = [...gameBoard];
+    const field = getFieldByPosition(newGame, x, y);
+    if (!field || field.isOpen) return;
+    field.hasFlag = true;
+    setGameBoard(newGame);
+  }
+
   useEffect(() => {
     const game = generateGameBoard(boardSize, 12);
     setGameBoard(game);
   }, [boardSize]);
 
-  return { gameBoard, handleClick };
+  return { gameBoard, handleClick, addFlag: handleRightClick };
 }

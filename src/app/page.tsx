@@ -1,13 +1,13 @@
 "use client";
 import useGame from "@/hooks/useGame";
 import { ActionIcon, Button, SimpleGrid } from "@mantine/core";
-import { IconBombFilled } from "@tabler/icons-react";
+import { IconBombFilled, IconFlag, IconFlag3 } from "@tabler/icons-react";
 import React, { useEffect } from "react";
 
 const boardSize = 20;
 
 export default function Home() {
-  const { gameBoard, handleClick } = useGame({ boardSize });
+  const { gameBoard, handleClick, addFlag } = useGame({ boardSize });
 
   return (
     <SimpleGrid cols={boardSize} spacing={0}>
@@ -36,8 +36,12 @@ export default function Home() {
             w={"20px"}
             h={"20px"}
             onClick={() => handleClick(field.x, field.y)}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              addFlag(field.x, field.y);
+            }}
           >
-            {field.isOpen && field.icon}
+            {field.isOpen ? field.icon : field.hasFlag && <IconFlag />}
           </ActionIcon>
         );
       })}
